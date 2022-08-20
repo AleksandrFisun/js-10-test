@@ -4,10 +4,9 @@ import cardsCountry from './template/country.hbs';
 import fetchCountries from './js/fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-refs = {
-  inputCounrty: document.querySelector('#search-box'),
-  countryList: document.querySelector('.country-list'),
-};
+
+const inputCounrty = document.querySelector('#search-box');
+const countryList = document.querySelector('.country-list');
 const DEBOUNCE_DELAY = 300;
 
 function searchCoutry(e) {
@@ -41,20 +40,20 @@ function creationMarkup(country) {
   if (country.length < 10 && country.length >= 2) {
     clearCountry();
     const countriesInfo = listCountries(country);
-    refs.countryList.insertAdjacentHTML('afterbegin', countriesInfo);
+    countryList.insertAdjacentHTML('afterbegin', countriesInfo);
     return;
   }
   if (country.length === 1) {
     clearCountry();
     const counrryInfo = cardsCountry(country);
-    refs.countryList.insertAdjacentHTML('afterbegin', counrryInfo);
+    countryList.insertAdjacentHTML('afterbegin', counrryInfo);
     return;
   }
 }
 function clearCountry() {
-  refs.countryList.innerHTML = '';
+  countryList.innerHTML = '';
 }
-refs.inputCounrty = addEventListener(
+inputCounrty = addEventListener(
   'input',
   debounce(searchCoutry, DEBOUNCE_DELAY)
 );
