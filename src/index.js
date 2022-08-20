@@ -14,6 +14,7 @@ function searchCoutry(e) {
   const country = e.target.value.trim();
   if (!country || country === ``) {
     clearCountry();
+    Notiflix.Notify.info('Please enter more characters.');
   }
   fetchCountries(country)
     .then(data => {
