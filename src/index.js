@@ -19,15 +19,13 @@ function searchCoutry(e) {
   fetchCountries(country)
     .then(data => {
       if (data.status === 404) {
-        clearCountry();
         Notiflix.Notify.failure(`Oops, there is no country with that name`);
+        clearCountry();
       }
       creationMarkup(data);
       createAllCountryMarkup(data);
     })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-    });
+    .catch(error => Notiflix.Notify.failure(error.message));
 }
 
 function creationMarkup(country) {
@@ -56,21 +54,16 @@ function creationMarkup(country) {
 <p>Capital: ${country.capital}</p>
 <p>Population: ${country.population}</p>
 <p>Languages: ${Object.values(country.languages)}</p>
-</li>
-`
+</li>`
       )
       .join('');
-
     countryList.insertAdjacentHTML(`afterbegin`, createCountry);
   }
 }
 function clearCountry() {
   countryList.innerHTML = '';
 }
-inputCounrty = addEventListener(
-  'input',
-  debounce(searchCoutry, DEBOUNCE_DELAY)
-);
+inputCounrty.addEventListener('input', debounce(searchCoutry, DEBOUNCE_DELAY));
 // Не касается домашней работы
 function createAllCountryMarkup(country) {
   if (country.length >= 10) {
