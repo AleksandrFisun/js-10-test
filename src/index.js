@@ -7,7 +7,7 @@ import Notiflix from 'notiflix';
 
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
-const countryInfo = document.querySelector('.country-info');
+const sectionAllCardCountry = document.querySelector('.country-info');
 const DEBOUNCE_DELAY = 300;
 
 function searchCoutry(e) {
@@ -23,6 +23,7 @@ function searchCoutry(e) {
         Notiflix.Notify.failure(`Oops, there is no country with that name`);
       }
       creationMarkup(data);
+      createAllCountryMarkup(data);
     })
     .catch(error => {
       Notiflix.Notify.failure(error);
@@ -49,20 +50,22 @@ function creationMarkup(country) {
       .map(
         country =>
           `
- <li>
- <img src="${country.flags.svg}" alt="" width ="20">
- <span> ${country.name.official}</span>
- <p>Capital: ${country.capital}</p>
- <p>Population: ${country.population}</p>
- <p>Languages: ${Object.values(country.languages)}</p>
- </li>
- `
+<li>
+<img src="${country.flags.svg}" alt="" width ="20">
+<span> ${country.name.official}</span>
+<p>Capital: ${country.capital}</p>
+<p>Population: ${country.population}</p>
+<p>Languages: ${Object.values(country.languages)}</p>
+</li>
+`
       )
       .join('');
 
     countryList.insertAdjacentHTML(`afterbegin`, createCountry);
   }
 }
+
+// Не касается домашней работы
 function clearCountry() {
   countryList.innerHTML = '';
 }
@@ -70,3 +73,13 @@ inputCounrty = addEventListener(
   'input',
   debounce(searchCoutry, DEBOUNCE_DELAY)
 );
+
+function createAllCountryMarkup(country) {
+  if (country.length >= 10) {
+    sectionAllCardCountry.innerHTML = '';
+    const allCardCountry = cardsCountry(country);
+    sectionAllCardCountry.insertAdjacentHTML('beforeend', allCardCountry);
+  } else {
+    sectionAllCardCountry.innerHTML = '';
+  }
+}
