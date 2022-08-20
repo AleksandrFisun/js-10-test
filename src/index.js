@@ -7,6 +7,7 @@ import Notiflix from 'notiflix';
 
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
+const countryInfo = document.querySelector('.country-info');
 const DEBOUNCE_DELAY = 300;
 
 function searchCoutry(e) {
@@ -20,7 +21,6 @@ function searchCoutry(e) {
       if (data.status === 404) {
         clearCountry();
         Notiflix.Notify.failure(`Oops, there is no country with that name`);
-        return;
       }
       creationMarkup(data);
     })
@@ -45,9 +45,22 @@ function creationMarkup(country) {
   }
   if (country.length === 1) {
     clearCountry();
-    const counrryInfo = cardsCountry(country);
-    countryList.insertAdjacentHTML('afterbegin', counrryInfo);
-    return;
+    const createCountry = country
+      .map(
+        country =>
+          `
+ <li>
+ <img src="${country.flags.svg}" alt="" width ="20">
+ <span> ${country.name.official}</span>
+ <p>Capital: ${country.capital}</p>
+ <p>Population: ${country.population}</p>
+ <p>Languages: ${Object.values(country.languages)}</p>
+ </li>
+ `
+      )
+      .join('');
+
+    countryList.insertAdjacentHTML(`afterbegin`, createCountry);
   }
 }
 function clearCountry() {
