@@ -64,8 +64,6 @@ function creationMarkup(country) {
     countryList.insertAdjacentHTML(`afterbegin`, createCountry);
   }
 }
-
-// Не касается домашней работы
 function clearCountry() {
   countryList.innerHTML = '';
 }
@@ -73,7 +71,7 @@ inputCounrty = addEventListener(
   'input',
   debounce(searchCoutry, DEBOUNCE_DELAY)
 );
-
+// Не касается домашней работы
 function createAllCountryMarkup(country) {
   if (country.length >= 10) {
     sectionAllCardCountry.innerHTML = '';
