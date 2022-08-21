@@ -4,7 +4,7 @@ import Notiflix from 'notiflix';
 import fetchCountries from './js/fetchCountries';
 import cardsCountry from './template/country.hbs';
 import allCountriesCard from './template/all-countries-card.hbs';
-import countryCardMarkup from './template/countriesMarkup.hbs';
+import countryCardMarkup from './template/countryMarkup.hbs';
 //Подключение
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
