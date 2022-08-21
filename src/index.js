@@ -2,7 +2,7 @@ import './css/styles.css';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import fetchCountries from './js/fetchCountries';
-import cardsCountry from './template/country.hbs';
+import listCountry from './template/country.hbs';
 import allCountriesCard from './template/all-countries-card.hbs';
 // import countryCardMarkup from './template/countryMarkup.hbs';
 //Подключение
@@ -43,7 +43,7 @@ function creationMarkup(countries) {
   }
   if (countries.length < 10 && countries.length >= 2) {
     clearCountry();
-    const createCountry = cardsCountry(countries);
+    const createCountry = listCountry(countries);
     countryList.insertAdjacentHTML('afterbegin', createCountry);
   }
   if (countries.length === 1) {
