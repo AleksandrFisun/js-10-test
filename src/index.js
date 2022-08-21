@@ -4,7 +4,7 @@ import Notiflix from 'notiflix';
 import fetchCountries from './js/fetchCountries';
 import listCountryCards from './template/country.hbs';
 import allCountriesCards from './template/all-countries-card.hbs';
-// import countryCardMarkup from './template/countryMarkup.hbs';
+import countryCardMarkup from './template/countryMarkup.hbs';
 //Подключение
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
@@ -48,21 +48,8 @@ function creationMarkup(countries) {
   }
   if (countries.length === 1) {
     clearCountry();
-    const countryMarkup = countries
-      .map(
-        country =>
-          `<li>
-      <img src="${country.flags.svg}" alt="" width ="20">
-      <span> ${country.name.official}</span>
-      <p>Capital: ${country.capital}</p>
-      <p>Population: ${country.population}</p>
-      <p>Languages: ${Object.values(country.languages)}</p>
-      </li>
-      `
-      )
-      .join('');
     // (Через handlebars на локал хосте работает а на гите нет, пишет countryMarkup is not defined)
-    // countryMarkup = countryCardMarkup(countries);
+    countryMarkup = countryCardMarkup(countries);
     countryList.insertAdjacentHTML(`afterbegin`, countryMarkup);
   }
 }
