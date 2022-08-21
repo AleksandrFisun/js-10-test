@@ -40,12 +40,14 @@ function creationMarkup(countries) {
       'Too many matches found. Please enter a more specific name.'
     );
     return;
-  } else if (countries.length < 10 && countries.length >= 2) {
+  }
+  if (countries.length < 10 && countries.length >= 2) {
     clearCountry();
     const createCountry = cardsCountry(countries);
     countryList.insertAdjacentHTML('afterbegin', createCountry);
     return;
-  } else if (countries.length === 1) {
+  }
+  if (countries.length === 1) {
     clearCountry();
     countriesMarkup = countriesCardMarkup(countries);
     countryList.insertAdjacentHTML(`afterbegin`, countriesMarkup);
@@ -58,7 +60,6 @@ function clearCountry() {
 inputCounrty.addEventListener('input', debounce(searchCoutry, DEBOUNCE_DELAY));
 //
 // Не касается домашней работы (Список карточек стран более 10)
-//
 function createAllCountryMarkup(countries) {
   if (countries.length >= 10) {
     sectionAllCardCountry.innerHTML = '';
