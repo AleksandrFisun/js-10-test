@@ -44,6 +44,17 @@ li{
 .div__all-country{
 padding-top: 100px;
 }
+.title__all-countries-invisible{
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+}
+.title__all-countries-visible{
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+}
+
 /* Проекты */
 .projects-list {
   display: flex;

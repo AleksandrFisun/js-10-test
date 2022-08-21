@@ -1,13 +1,16 @@
 import './css/styles.css';
-import listCountries from './template/list-countries.hbs';
 import cardsCountry from './template/country.hbs';
 import fetchCountries from './js/fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-
+//
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const sectionAllCardCountry = document.querySelector('.country-info');
+const titleAllCountries = document.querySelector(
+  '.title__all-countries-invisible'
+);
+//
 const DEBOUNCE_DELAY = 300;
 
 function searchCoutry(e) {
@@ -28,33 +31,41 @@ function searchCoutry(e) {
     .catch(error => Notiflix.Notify.failure(error.message));
 }
 
-function creationMarkup(country) {
-  if (country.length > 10) {
+function creationMarkup(countries) {
+  if (countries.length > 10) {
     clearCountry();
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
     return;
   }
-  if (country.length < 10 && country.length >= 2) {
+  if (countries.length < 10 && countries.length >= 2) {
     clearCountry();
-    const countriesInfo = listCountries(country);
-    countryList.insertAdjacentHTML('afterbegin', countriesInfo);
+    const createCountry = countries
+      .map(
+        countries => `
+  <li>
+  <img src="${countries.flags.svg}" alt="" width ="20">
+  <span> ${countries.name.official}</span>
+  </li>`
+      )
+      .join('');
+    countryList.insertAdjacentHTML('afterbegin', createCountry);
     return;
   }
-  if (country.length === 1) {
+  if (countries.length === 1) {
     clearCountry();
-    const createCountry = country
+    const createCountry = countries
       .map(
-        country =>
+        countries =>
           `
-<li>
-<img src="${country.flags.svg}" alt="" width ="20">
-<span> ${country.name.official}</span>
-<p>Capital: ${country.capital}</p>
-<p>Population: ${country.population}</p>
-<p>Languages: ${Object.values(country.languages)}</p>
-</li>`
+    <li>
+    <img src="${countries.flags.svg}" alt="" width ="20">
+    <span> ${countries.name.official}</span>
+    <p>Capital: ${countries.capital}</p>
+    <p>Population: ${countries.population}</p>
+    <p>Languages: ${Object.values(countries.languages)}</p>
+    </li>`
       )
       .join('');
     countryList.insertAdjacentHTML(`afterbegin`, createCountry);
@@ -64,13 +75,17 @@ function clearCountry() {
   countryList.innerHTML = '';
 }
 inputCounrty.addEventListener('input', debounce(searchCoutry, DEBOUNCE_DELAY));
-// Не касается домашней работы
-function createAllCountryMarkup(country) {
-  if (country.length >= 10) {
+// Не касается домашней работы (Подсказка если знаешь только 1 букву =) )
+function createAllCountryMarkup(countries) {
+  if (countries.length >= 10) {
     sectionAllCardCountry.innerHTML = '';
-    const allCardCountry = cardsCountry(country);
+    titleAllCountries.classList.remove('title__all-countries-invisible');
+    titleAllCountries.classList.add('title__all-countries-visible');
+    const allCardCountry = cardsCountry(countries);
     sectionAllCardCountry.insertAdjacentHTML('beforeend', allCardCountry);
   } else {
+    titleAllCountries.classList.remove('title__all-countries-visible');
+    titleAllCountries.classList.add('title__all-countries-invisible');
     sectionAllCardCountry.innerHTML = '';
   }
 }
