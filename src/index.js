@@ -4,8 +4,7 @@ import Notiflix from 'notiflix';
 import fetchCountries from './js/fetchCountries';
 import cardsCountry from './template/country.hbs';
 import allCountriesCard from './template/all-countries-card.hbs';
-import countriesCardMarkup from './template/countries-markup.hbs';
-
+import countryCardMarkup from './template/countriesMarkup.hbs';
 //Подключение
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
@@ -49,8 +48,8 @@ function creationMarkup(countries) {
   }
   if (countries.length === 1) {
     clearCountry();
-    countriesMarkup = countriesCardMarkup(countries);
-    countryList.insertAdjacentHTML(`afterbegin`, countriesMarkup);
+    countryMarkup = countryCardMarkup(countries);
+    countryList.insertAdjacentHTML(`afterbegin`, countryMarkup);
   }
 }
 // Обнуление html разметки
