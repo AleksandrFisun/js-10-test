@@ -1,10 +1,11 @@
 import './css/styles.css';
-import countriesCardMarkup from './template/countries-markup.hbs';
-import allCountriesCard from './template/all-countries-card.hbs';
-import cardsCountry from './template/country.hbs';
-import fetchCountries from './js/fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+import fetchCountries from './js/fetchCountries';
+import cardsCountry from './template/country.hbs';
+import allCountriesCard from './template/all-countries-card.hbs';
+import countriesCardMarkup from './template/countries-markup.hbs';
+
 //Подключение
 const inputCounrty = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
@@ -45,7 +46,6 @@ function creationMarkup(countries) {
     clearCountry();
     const createCountry = cardsCountry(countries);
     countryList.insertAdjacentHTML('afterbegin', createCountry);
-    return;
   }
   if (countries.length === 1) {
     clearCountry();
